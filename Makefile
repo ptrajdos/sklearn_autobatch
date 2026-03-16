@@ -5,7 +5,6 @@ SRCDIR=${ROOTDIR}/sklearn_autobatch
 TESTDIR=${ROOTDIR}/tests
 COVDIR=${ROOTDIR}/htmlcov_p
 COVERAGERC=${ROOTDIR}/.coveragerc
-REQ_FILE=${ROOTDIR}/requirements_dev.txt
 INSTALL_LOG_FILE=${ROOTDIR}/install.log
 VENV_SUBDIR=${ROOTDIR}/venv
 COVERAGERC=${ROOTDIR}/.coveragerc
@@ -53,7 +52,7 @@ venv:
 	
 
 pypackages: venv
-	${ACTIVATE}; ${PYTHON} -m ${PIP} install -e ${ROOTDIR}[dev] --prefer-binary --log ${INSTALL_LOG_FILE} -r ${REQ_FILE}
+	${ACTIVATE}; ${PYTHON} -m ${PIP} install -e ${ROOTDIR}[dev] --prefer-binary --log ${INSTALL_LOG_FILE}
 	touch $@
 
 test: pypackages
