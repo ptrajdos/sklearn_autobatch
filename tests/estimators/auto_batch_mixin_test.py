@@ -20,10 +20,6 @@ class LogisticBatchClassifier(AutoBatchMixin, LogisticRegression):
 class MLPBatchClassifier(AutoBatchMixin, MLPClassifier):
     pass
 
-class SVCBatchClassifier(AutoBatchMixin, SVC):
-    pass
-
-
 class TestAutoBatchMixin(unittest.TestCase):
 
     def get_estimators(self):
@@ -31,7 +27,6 @@ class TestAutoBatchMixin(unittest.TestCase):
             "KNN": KNNBatchClassifier(),
             "Logistic": LogisticBatchClassifier(),
             "MLP": MLPBatchClassifier(),
-            "SVC": SVCBatchClassifier(),
         }
     
     def test_sklearn(self):

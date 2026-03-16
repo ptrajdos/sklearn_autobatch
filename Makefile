@@ -10,6 +10,7 @@ INSTALL_LOG_FILE=${ROOTDIR}/install.log
 VENV_SUBDIR=${ROOTDIR}/venv
 COVERAGERC=${ROOTDIR}/.coveragerc
 DOCS_DIR=${ROOTDIR}/docs
+TOXDIR=${ROOTDIR}/.tox
 
 COVERAGE = coverage
 UNITTEST_PARALLEL = unittest-parallel
@@ -18,6 +19,7 @@ PYTHON=python
 SYSPYTHON=python
 PIP=pip
 PYTEST=pytest
+TOX=tox
 VENV_OPTIONS=
 
 LOGDIR=${ROOTDIR}/testlogs
@@ -34,9 +36,17 @@ endif
 
 .PHONY: all clean test docs
 
-clean:
-	rm -rf ${VENV_SUBDIR} pypackages
+clean: clean_pypackages clean_venv clean_tox
+	@echo "Cleaning up build artifacts, virtual environments, and test logs..."
 
+clean_pypackages:
+	rm -rf pypackages
+
+clean_venv:
+	rm -rf ${VENV_SUBDIR}
+
+clean_tox:
+	rm -rf ${TOXDIR}
 venv:
 	${SYSPYTHON} -m venv --upgrade-deps ${VENV_OPTIONS} ${VENV_SUBDIR}
 	${ACTIVATE}; ${PYTHON} -m ${PIP} install wheel setuptools pypackages
@@ -62,3 +72,6 @@ docs: pypackages
 profile: pypackages
 	
 	${ACTIVATE}; ${PYTEST} -n auto --cov-report=html --cov=${SRCDIR} --profile ${TESTDIR}
+
+tox_check: pypackages
+	${ACTIVATE}; ${TOX}
