@@ -73,4 +73,4 @@ profile: pypackages
 	${ACTIVATE}; ${PYTEST} -n auto --cov-report=html --cov=${SRCDIR} --profile ${TESTDIR}
 
 tox_check: pypackages
-	${ACTIVATE}; ${TOX}
+	${ACTIVATE}; ${TOX} -p auto
