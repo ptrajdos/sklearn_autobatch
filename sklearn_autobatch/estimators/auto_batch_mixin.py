@@ -27,14 +27,15 @@ class AutoBatchMixin:
         X = check_array(X, accept_sparse=['csr', 'csc', 'coo'], accept_large_sparse=True)
     
         # If it's still not subscriptable (like COO), force CSR
-        if sp.issparse(X) and not hasattr(X, '__getitem__'):
+        if sp.issparse(X):
             X = X.tocsr()
 
         n_samples = X.shape[0]
         base_method = getattr(super(), method_name)
         
-        # Get the first chunk to determine output shape and dtype
+        # Get the first chunk to determine output shape and dtype        
         first_chunk = base_method(X[0:1], **kwargs)
+
 
         if isinstance(first_chunk, list):
             # Pre-allocate a list of empty arrays matching each label's output shape
