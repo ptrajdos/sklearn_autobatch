@@ -24,6 +24,7 @@ VENV_OPTIONS=
 LOGDIR=${ROOTDIR}/testlogs
 LOGFILE=${LOGDIR}/`date +'%y-%m-%d_%H-%M-%S'`.log
 
+TOX_CORES=auto
 
 PYTHON_VERSION=3.9
 
@@ -73,4 +74,4 @@ profile: pypackages
 	${ACTIVATE}; ${PYTEST} -n auto --cov-report=html --cov=${SRCDIR} --profile ${TESTDIR}
 
 tox_check: pypackages
-	${ACTIVATE}; ${TOX} -p auto
+	${ACTIVATE}; ${TOX} -p ${TOX_CORES}
